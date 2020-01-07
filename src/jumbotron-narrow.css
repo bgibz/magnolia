@@ -130,3 +130,7 @@ h1.title {
   padding-bottom: 20px;
   border-bottom: 2px solid #e5e5e5;
 }
+.block-no-border {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
