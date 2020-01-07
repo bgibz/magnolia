@@ -1,0 +1,2 @@
+# magnolia
+Static wedding site
