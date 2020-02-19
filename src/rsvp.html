@@ -48,9 +48,51 @@
       </div>
 
       <div class="row details">
-        <div class="col-sm-6 col-sm-offset-3 text-center">
+        <div class="col-sm-8 col-sm-offset-2 text-center">
             <div class="block-no-border">
-              <h3>Coming Soon...</h3>
+                <h4>Please RSVP by October 3, 2020</h4>
+              <form class="text-left rsvpForm">
+                    <div class="form-group">
+                        <label for="guestName">Name*</label>
+                        <input type="text" id="guestName" class="form-control" placeholder="First & Last Name">
+                    </div>
+                    <div class="form-group">
+                        <label>Are you able to attend?*</label>
+                    
+                    <div class="radio">
+                        <div class="col-xs-5">
+                            <label>
+                                <input type="radio" name="attendance" id="attendYes" value="Yes">
+                                Attending
+                            </label>
+                        </div>
+                        <div class="col-xs-5 col-xs-offset-2">
+                            <label>
+                                <input type="radio" name="attendance" id="attendNo" value="No">
+                                Unable to Attend
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="otherGuest">Is Anyone Coming With You?</label>
+                </div>
+                <div class="form-group" id="plusRSVP">
+                    <div class="col-xs-2">
+                        <span id="addGuest" class="glyphicon glyphicon-plus-sign" style="padding-top:7px"></span>
+                    </div>
+                    <div class="col-xs-10">
+                    <input type="text" name="otherGuest" class="form-control plusPerson" id="plusOne" placeholder="Guest's Name">
+                    </div>
+                    <div class="col-xs-10 col-xs-offset-2" class="plusPerson"></div>
+                </div>  
+                <div class="form-group">
+                    <label for="comments">Message</label>
+                    <textarea name="comments" id="messageBlock" class="form-control" rows="5" placeholder="Let us know if you have any dietary restrictions, song requests, or just use this space to leave a note."></textarea>
+                </div>
+                <div id="submitError"></div>
+                <button type="submit" id="rsvpSubmitBtn" class="btn btn-default">Submit</button>
+              </form>
             </div>
         </div>
       </div>
@@ -64,5 +106,40 @@
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous">
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#rsvpSubmitBtn").click(function(event) {
+                event.preventDefault();
+                submitForm();
+            });
+            $("#addGuest").click(function(event) {
+                event.preventDefault();
+                let newInput = "<div class='col-xs-10 col-xs-offset-2'>" +
+                                "<input type='text' class='form-control plusPerson' placeholder='Name'></div>";
+                $("#plusRSVP").append(newInput);
+            });
+
+        });
+
+        function submitForm() {
+            const guestName = $("#guestName").val();
+            const attending = $("#attendYes").is(":checked");
+            const message = $.trim($("#messageBlock").val());
+            if (!guestName || (!attending && $("#attendNo").is(":checked"))) {
+                $("#submitError").empty();
+                $("#submitError").append("<span class='text-danger'>Please fill out all required fields.</span>")
+            } else {
+                console.log("Guest: " + guestName);
+                console.log("Attending: " + attending);
+                console.log("Message: " + message);
+                //TODO: Submit Form Values
+            }
+        }    
+    </script>
   </body>
 </html>

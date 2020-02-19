@@ -2,7 +2,7 @@
 body {
   padding-top: 80px;
   padding-bottom: 80px;
-  background-image: url("../media/pastel.jpg");
+  background-image: url("../media/pastel2.jpg");
   background-size: 400px;
   background-repeat: repeat;
   font-family: Garamond, Lucida Bright, serif;
@@ -47,7 +47,7 @@ body {
 @media (min-width: 768px) {
   .container {
     max-width: 70%;
-    border: 2px solid #e5e5e5;
+    border: 5px solid #e5e5e5;
     padding-top: 80px;
     padding-left: 80px;
     padding-right: 80px;
@@ -120,10 +120,11 @@ img {
 
 .page-card {
   background-color: ghostwhite;
+  border-radius: 10px;
 }
 
 h1.title {
-  font-size: 70px;
+  font-size: 4.25em;
 }
 
 .block{
@@ -134,4 +135,25 @@ h1.title {
 .block-no-border {
   padding-top: 20px;
   padding-bottom: 20px;
+}
+
+textarea {
+  resize: none;
+}
+
+.rsvpForm {
+  background-color: #F8FCFF;
+  border-style: solid;
+  border-color: #e5e5e5;
+  border-width: 5px;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+#addGuest {
+  cursor: pointer;
+}
+
+.plusPerson {
+  margin-bottom: 5px;
 }
