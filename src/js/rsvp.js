@@ -11,7 +11,7 @@ function getRSVP() {
             url: "https://h4467dph4g.execute-api.us-west-2.amazonaws.com/develop/RSVP?guest_name="+guestName,
             context: this,
             cache: false,
-            method: "PUT",
+            method: "GET",
             dataType: "json",
             headers: {"Accept": "application/json; odata=verbose",
                     },
