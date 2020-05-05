@@ -1,19 +1,19 @@
 function getRSVP() {
-    const guestName = $("#guest_name").val();
+    let guestName = $("#guest_name").val();
     if (!guestName) {
         $("#submitError").empty();
         $("#submitError").append("<span class='text-danger'>Oops! Looks like you forgot to fill in your name.</span>")
     }  else {
+        guestName = guestName.trim();
+        guestName = guestName.replace("+", " ");
         console.log("Guest: " + guestName);
         $.ajax({
-            url: "https://h4467dph4g.execute-api.us-west-2.amazonaws.com/develop/RSVP",
+            url: "https://h4467dph4g.execute-api.us-west-2.amazonaws.com/develop/RSVP?guest_name="+guestName,
             context: this,
             cache: false,
             method: "PUT",
             dataType: "json",
-            data: {"guest_name": guestName},
             headers: {"Accept": "application/json; odata=verbose",
-                        "Content-Type": "application/json; odata=verbose"
                     },
             success: function(data) {
                 console.log("Data: " + data)
