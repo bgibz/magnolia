@@ -154,6 +154,30 @@ h1.title {
   z-index: 1;
 }
 
+.rsvp{
+  padding: 10px 10px 20px 10px;
+  border: 2px solid #e5e5e5;
+  border-radius: 15px;
+  position: relative;
+  font-size: 1.1em;
+}
+input[type=radio] {
+  margin-right: 4px;
+}
+
+.rsvp-row{
+  padding-top: 15px;
+}
+
+.marker {
+  margin-left: 5px;
+  border-bottom: 2px solid #891632;
+}
+
+textarea {
+  resize: none;
+}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (max-width: 768px) {
   /* Remove the padding we set earlier */
