@@ -165,8 +165,12 @@ input[type=radio] {
   margin-right: 4px;
 }
 
-.rsvp-row{
+.rsvp-row {
   padding-top: 15px;
+}
+
+#rsvpRadios{
+  display:flex;
 }
 
 .marker {
@@ -240,5 +244,8 @@ textarea {
   }
   .watercolor {
     display: none;
+  }
+  #rsvpRadios{
+    display: inline;
   }
 }
