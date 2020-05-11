@@ -7,7 +7,8 @@ function getRSVP() {
         guestName = guestName.trim();
         guestName = guestName.replace("+", " ");
         console.log("Guest: " + guestName);
-        //TODO: Display loading gif??
+        $("#nameCheck").hide();
+        $(".loader").show();
         $.ajax({
             url: "https://h4467dph4g.execute-api.us-west-2.amazonaws.com/develop/RSVP?guest_name="+guestName,
             context: this,
@@ -16,13 +17,15 @@ function getRSVP() {
             dataType: "json",
             headers: {"Accept": "application/json; odata=verbose"},
             success: function(data) {
-                $('#nameCheck').hide();
+                $('.loader').hide();
                 displayRSVP(data.result);
             },
             error: function(data) {
-                console.log("Error: " + JSON.stringify(data))
+                //console.log("Error: " + JSON.stringify(data))
+                $(".loader").hide();
+                $("#nameCheck").show();
                 $("#submitError").empty();
-        $("#submitError").append("<span class='text-danger'>Something went wrong. Please try again later.</span>")
+                $("#submitError").append("<span class='text-danger'>Something went wrong. Please try again later.</span>")
             }
         })
     }
@@ -39,7 +42,6 @@ function displayRSVP(data) {
             renderRSVPFormCard(data[i], i);
             $("#responseDiv").show();
         } else{
-            // TODO: Display RSVP status
             renderRSVPDetailCard(data [i], i);
             $("#responseDiv").show();
 
