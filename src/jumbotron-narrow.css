@@ -173,6 +173,10 @@ input[type=radio] {
   display:flex;
 }
 
+.submission {
+  margin-left: 5px;
+}
+
 .marker {
   margin-left: 5px;
   border-bottom: 2px solid #891632;
@@ -242,6 +246,10 @@ textarea {
   h1.title{
     font-size: 3em;
   }
+  a{
+    font-size: 4.0vw
+  }
+  
   .watercolor {
     display: none;
   }

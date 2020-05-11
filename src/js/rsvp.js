@@ -42,6 +42,7 @@ function displayRSVP(data) {
             // TODO: Display RSVP status
             renderRSVPDetailCard(data [i], i);
             $("#responseDiv").show();
+
         }
     }
     if (submissionChk) {
@@ -58,9 +59,9 @@ function renderRSVPFormCard(data, i) {
     let radioRow = $("<div class='form-row rsvp-row' id='rsvpRadios'></div>");
     let radioDiv = $("<div class='form-check form-check-inline col-sm-6'></div>");
     let radioDivTwo = $("<div class='form-check form-check-inline col-sm-6'></div>");
-    let respY = $("<input type='radio' class='form-check-input' name='rsvp" + i + "' id ='rsvpYes" + i + "'" + "value='Yes''>");
+    let respY = $("<input type='radio' class='form-check-input' name='rsvp" + i + "' id ='rsvpYes" + i + "'" + "value='Attending'>");
     let labelY = $("<label class='form-check-label' for='rsvpYes" + i + "'" + "> Accepts With Pleasure</label>");
-    let respN = $("<input type='radio' class='form-check-input' name='rsvp" + i + "' id ='rsvpNo" + i + "'" + "value='No'>");
+    let respN = $("<input type='radio' class='form-check-input' name='rsvp" + i + "' id ='rsvpNo" + i + "'" + "value='Unable to Attend'>");
     let labelN = $("<label class='form-check-label' for='rsvpNo" + i + "'" + "> Regretfully Declines</label>");
     let dietDiv = $("<div class='form-check text-left'><h5>Let us know if you have any dietary restrictions<h5></div>");
     let noRestrictions = $("<div class='form-row'><input type='radio' class='form-check-input' name='noRs" + i + "' id='noRs" + i + "' + value='0'>" + "<label class='form-check-label' for='noRs" + i + "'" + "> No Restrictions</label></div>");
@@ -80,7 +81,15 @@ function renderRSVPFormCard(data, i) {
 }
 
 function renderRSVPDetailCard(data, i) {
-
+    const mealMap = ["None", "Vegan/Vegetarian", "Gluten Free", "Nut Allergy", "Other (In notes)"];
+    let card = $("<div class='form-group rsvp'></div>");
+    let top = $("<div class='form-row guest text-left'><div class='_id' style='display:none;'>" + data._id + "</div><h3>" + data.Guest + "</h3></div>");
+    let underline = $("<div class='row'><div class='col-sm-4 col marker'></div><div class='col-sm-7'></div></div>")
+    let response = $("<div class='row submission'><h5>"+"Response: " + data.Response + "</h5></div>");
+    let meal = $("<div class='row submission'><h5>"+"Dietary Restrictions: " + mealMap[data.Diet] + "</h5></div>");
+    let details = $("<div class='row submission'><h5>Details:</h5><p>" + data.Details + "</p></div>");
+    card.append(top, underline, response, meal, details);
+    $("#responseDiv").append(card);
 }
 
 $(document).ready(function() {
