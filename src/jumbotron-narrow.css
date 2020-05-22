@@ -211,6 +211,10 @@ textarea {
   .watercolor {
     display: none;
   }
+  .page-card{
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
 }
 
 /* Responsive: Mobile */
@@ -249,7 +253,9 @@ textarea {
   a{
     font-size: 4.0vw
   }
-  
+  .inner-card {
+    padding: 15px;
+  }
   .watercolor {
     display: none;
   }

@@ -56,7 +56,7 @@ function displayRSVP(data) {
 function renderRSVPFormCard(data, i) {
     let card = $("<div class='form-group rsvp'></div>");
     let top = $("<div class='form-row guest text-left'><input class='_id' type='hidden' value='" + data._id + "'><h3>" + data.Guest + "</h3></div>");
-    let underline = $("<div class='row'><div class='col-sm-4 col marker'></div><div class='col-sm-7'></div></div>")
+    let underline = $("<div class='row'><div class='col-sm-4 col-xs-6 col marker'></div><div class='col-sm-7 col-xs-6'></div></div>")
     let radioRow = $("<div class='form-row rsvp-row' id='rsvpRadios'></div>");
     let radioDiv = $("<div class='form-check form-check-inline col-sm-6'></div>");
     let radioDivTwo = $("<div class='form-check form-check-inline col-sm-6'></div>");
