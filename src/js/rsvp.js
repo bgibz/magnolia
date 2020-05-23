@@ -9,7 +9,7 @@ function getRSVP() {
         $("#nameCheck").hide();
         $(".loader").show();
         $.ajax({
-            url: "https://h4467dph4g.execute-api.us-west-2.amazonaws.com/develop/RSVP?guest_name="+guestName,
+            url: "https://h4467dph4g.execute-api.us-west-2.amazonaws.com/develop/Guest?guest_name="+guestName,
             context: this,
             cache: false,
             method: "GET",
