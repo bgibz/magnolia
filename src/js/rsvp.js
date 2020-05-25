@@ -55,7 +55,7 @@ function displayRSVP(data) {
 
 function renderRSVPFormCard(data, i) {
     let card = $("<div class='form-group rsvp'></div>");
-    let top = $("<div class='form-row guest text-left'><input class='_id' type='hidden' value='" + data._id + "'><h3>" + data.Guest + "</h3></div>");
+    let top = $("<div class='form-row guest text-left'><input class='_id' type='hidden' value='" + data._id + "'><h3 class='guest-name'>" + data.Guest + "</h3></div>");
     let underline = $("<div class='row'><div class='col-sm-4 col-xs-6 col marker'></div><div class='col-sm-7 col-xs-6'></div></div>")
     let radioRow = $("<div class='form-row rsvp-row' id='rsvpRadios'></div>");
     let radioDiv = $("<div class='form-check form-check-inline col-sm-6'></div>");
@@ -84,13 +84,23 @@ function renderRSVPFormCard(data, i) {
 function renderRSVPDetailCard(data, i) {
     const mealMap = ["None", "Vegan/Vegetarian", "Gluten Free", "Nut Allergy", "Other (In notes)"];
     let card = $("<div class='form-group rsvp'></div>");
-    let top = $("<div class='form-row guest text-left'><div class='_id' style='display:none;'>" + data._id + "</div><h3>" + data.Guest + "</h3></div>");
+    let top = $("<div class='form-row guest text-left'><div class='_id' style='display:none;'>" + data._id + "</div><h3 class='guest-name'>" + data.Guest + "</h3></div>");
     let underline = $("<div class='row'><div class='col-sm-4 col marker'></div><div class='col-sm-7'></div></div>")
     let response = $("<div class='row submission'><h5>"+"Response: " + data.Response + "</h5></div>");
     let meal = $("<div class='row submission'><h5>"+"Dietary Restrictions: " + mealMap[data.Diet] + "</h5></div>");
     let details = $("<div class='row submission'><h5>Details:</h5><p>" + data.Details + "</p></div>");
     card.append(top, underline, response, meal, details);
     $("#responseDiv").append(card);
+}
+
+function renderResponseConfirmation(data) {
+    let mealMap = ["No Restrictions", "Vegan/Vegetarian", "Celiac", "Nut Allergy", "Other"];
+    let target = $("div class='rsvp text-left></div>");
+    let name = $("<h3 class='guest-name'>" + data.name + "</h3>");
+    let underline = $("<div class='row'><div class='col-sm-4 col marker'></div><div class='col-sm-7'></div></div>");
+    let response = $("<div class='row' style='padding-left: 15px;'><p><strong>Response: </strong>" + data.response + "</p></div>");
+    let meal_choice = $("<div class='row' style='padding-left: 15px;'><p><strong>Meal Choice: </strong>" + mealMap[data.meal] + "</p></div>");  
+    target.append(name, underline, response, meal_choice);  
 }
 
 function buildRSVPResponse() {
@@ -144,7 +154,20 @@ function postRSVPResponse(response){
         data: payload,
         success: function(data) {
             $('.loader').hide();
-            // thanks for your response...
+            $("#responseDiv").empty();
+            if (data.submitted.length === 1) {
+                $("#formTitle").text("Thank You For Your Response");
+                renderResponseConfirmation(data.submitted[0]);
+            }
+            else if (data.submitted.length > 1) {
+                $("#formTitle").text("Thank You For Your Responses");
+                for ( i = 0; i < data.submitted.length; i++) {
+                    renderResponseConfirmation(data.submitted[i])
+                }
+            }
+            else {
+                $("#formTitle").text("We're sorry, something has gone wrong. Please try again later.");
+            }
         },
         error: function(data) {
             $(".loader").hide();
