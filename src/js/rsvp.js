@@ -42,13 +42,16 @@ function displayRSVP(data) {
         } else{
             renderRSVPDetailCard(data [i], i);
             $("#responseDiv").show();
-            $(".loader").show();
-            
+            $(".loader").show();   
         }
     }
     if (submissionChk) {
         let submissionBtn = $('<div class="form-group"><button type="submit" id="rsvpSubmitBtn" class="btn btn-default">Submit</button></div>')
         $("#rsvpForm").append(submissionBtn);
+        $(submissionBtn).click(function(event) {
+            event.preventDefault();
+            buildRSVPResponse();
+        })
         //TODO: Attach listener for RSVP submission
     }
 }
@@ -83,11 +86,11 @@ function renderRSVPFormCard(data, i) {
 
 function renderRSVPDetailCard(data, i) {
     const mealMap = ["None", "Vegan/Vegetarian", "Gluten Free", "Nut Allergy", "Other (In notes)"];
-    let card = $("<div class='form-group rsvp'></div>");
-    let top = $("<div class='form-row guest text-left'><div class='_id' style='display:none;'>" + data._id + "</div><h3 class='guest-name'>" + data.Guest + "</h3></div>");
+    let card = $("<div class='form-group rsvp text-left'></div>");
+    let top = $("<div class='form-row guest'><div class='_id' style='display:none;'>" + data._id + "</div><h3 class='guest-name'>" + data.Guest + "</h3></div>");
     let underline = $("<div class='row'><div class='col-sm-4 col marker'></div><div class='col-sm-7'></div></div>")
-    let response = $("<div class='row submission'><h5>"+"Response: " + data.Response + "</h5></div>");
-    let meal = $("<div class='row submission'><h5>"+"Dietary Restrictions: " + mealMap[data.Diet] + "</h5></div>");
+    let response = $("<div class='row submission'><h4>"+"Response: " + data.Response + "</h4></div>");
+    let meal = $("<div class='row submission'><h5>"+"Dietary Restrictions:</h5><p> " + mealMap[data.Diet] + "</p></div>");
     let details = $("<div class='row submission'><h5>Details:</h5><p>" + data.Details + "</p></div>");
     card.append(top, underline, response, meal, details);
     $("#responseDiv").append(card);
@@ -109,7 +112,7 @@ function buildRSVPResponse() {
     for (i = 0; i < form.length; i++) {
         let curr = $(form[i]);
         let name = $(curr).find("h3").text();
-        let _id = $(curr).find()("._id")[0].value;
+        let _id = $(curr).find("._id")[0].value;
         let response = $(curr).find("input.response:checked")[0].value;
         let meal = $(curr).find("input.meal:checked")[0].value;
         let details = $(curr).find("#detailsTextArea0")[0].value;
