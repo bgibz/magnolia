@@ -1,3 +1,5 @@
+var globalGuestUpdates = [];
+
 function getRSVP() {
     let guestName = $("#guest_name").val();
     if (!guestName) {
@@ -32,6 +34,7 @@ function getRSVP() {
 function displayRSVP(data) {
     var i;
     let submissionChk = false;
+    let renderUpdateBtn = false;
     for (i = 0; i < data.length; i++) {
         if (data[i].Response == 'Pending') {
             submissionChk = true;
@@ -40,9 +43,11 @@ function displayRSVP(data) {
             renderRSVPFormCard(data[i], i);
             $("#responseDiv").show();
         } else{
-            renderRSVPDetailCard(data [i], i);
+            renderUpdateBtn = true;
+            globalGuestUpdates.append(data[i])
+            renderRSVPDetailCard(data[i], i);
             $("#responseDiv").show();
-            $(".loader").show();   
+            $(".loader").show();
         }
     }
     if (submissionChk) {
@@ -52,7 +57,9 @@ function displayRSVP(data) {
             event.preventDefault();
             buildRSVPResponse();
         })
-        //TODO: Attach listener for RSVP submission
+    }
+    if (renderUpdateBtn) {
+        appendUpdateResponseBtn();
     }
 }
 
@@ -128,6 +135,14 @@ function buildRSVPResponse() {
     postRSVPResponse(response);
 }
 
+function appendUpdateResponseBtn(){
+    let btn = $("<div id='updateBtn' class='row'><div class='col-sm-3 text-right'><button type='submit' id='updateResponse' class='btn btn-default'>Update Response</button></div></div>")
+    $("#updateBtn").append(btn);
+    $(btn).click(function event(){
+        //TODO: wipe form data, render form with all possible responses
+    });
+}
+
 function postRSVPResponse(response){
     let errorCheck = false
     if (response.length === 0) {
@@ -136,7 +151,7 @@ function postRSVPResponse(response){
     } else {
         for (i = 0; i < response.length; i++){
             // Check properties of each response
-            if (response[i]._id < 0 || response[i].meal > 5 || !response[i].name || !response[i].response) {
+            if (response[i]._id < 0 || !response[i].meal || response[i].meal > 5 || !response[i].name || !response[i].response) {
                 errorCheck = true;
             }
         }
@@ -144,7 +159,7 @@ function postRSVPResponse(response){
     let payload = {
         "guest_responses": response
     }
-    // All good, hide form and send response
+    // Hide form and send response
     $("#rsvpForm").hide();
     $(".loader").show();
     $.ajax({
@@ -158,14 +173,18 @@ function postRSVPResponse(response){
         success: function(data) {
             $('.loader').hide();
             $("#responseDiv").empty();
-            if (data.submitted.length === 1) {
+            if (data.length === 1) {
                 $("#formTitle").text("Thank You For Your Response");
-                renderResponseConfirmation(data.submitted[0]);
+                globalGuestUpdates = data;
+                renderResponseConfirmation(data[0]);
+                appendUpdateResponseBtn();
             }
-            else if (data.submitted.length > 1) {
+            else if (data.length > 1) {
                 $("#formTitle").text("Thank You For Your Responses");
-                for ( i = 0; i < data.submitted.length; i++) {
-                    renderResponseConfirmation(data.submitted[i])
+                for ( i = 0; i < data.length; i++) {
+                    globalGuestUpdates = data;
+                    renderResponseConfirmation(data[i])
+                    appendUpdateResponseBtn();
                 }
             }
             else {
