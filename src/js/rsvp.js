@@ -38,13 +38,14 @@ function displayRSVP(data) {
     for (i = 0; i < data.length; i++) {
         if (data[i].Response == 'Pending') {
             submissionChk = true;
+            globalGuestUpdates.push(data[i]);
             $("#formTitle").empty();
             $("#formTitle").text("Please RSVP By August 7th");
             renderRSVPFormCard(data[i], i);
             $("#responseDiv").show();
         } else{
             renderUpdateBtn = true;
-            globalGuestUpdates.append(data[i])
+            globalGuestUpdates.push(data[i])
             renderRSVPDetailCard(data[i], i);
             $("#responseDiv").show();
             $(".loader").show();
@@ -75,11 +76,11 @@ function renderRSVPFormCard(data, i) {
     let respN = $("<input type='radio' class='form-check-input response' name='rsvp" + i + "' id ='rsvpNo" + i + "'" + "value='Unable to Attend'>");
     let labelN = $("<label class='form-check-label' for='rsvpNo" + i + "'" + "> Regretfully Declines</label>");
     let dietDiv = $("<div class='form-check text-left'><h5>Let us know if you have any dietary restrictions<h5></div>");
-    let noRestrictions = $("<div class='form-row'><input type='radio' class='form-check-input meal' name='noRs" + i + "' id='noRs" + i + "' + value='0'>" + "<label class='form-check-label' for='noRs" + i + "'" + "> No Restrictions</label></div>");
-    let veg = $("<div class='form-row'><input type='radio' class='form-check-input meal' name='veg" + i + "' id='veg" + i + "' + value='2'>" + "<label class='form-check-label' for='veg" + i + "'" + ">Vegan/Vegetarian</label></div>");
-    let celiac = $("<div class='form-row'><input type='radio' class='form-check-input meal' name='celiac" + i + "' id='celiac" + i + "' + value='2'>" + "<label class='form-check-label' for='celiac" + i + "'" + ">Gluten Free</label></div>");
-    let nuts = $("<div class='form-row'><input type='radio' class='form-check-input meal' name='nuts" + i + "' id='nuts" + i + "' + value='2'>" + "<label class='form-check-label' for='nuts" + i + "'" + ">Nut Allergy</label></div>");
-    let other = $("<div class='form-row'><input type='radio' class='form-check-input meal' name='other" + i + "' id='other" + i + "' + value='2'>" + "<label class='form-check-label' for='other" + i + "'" + ">Other (Please provide details in text box below)</label></div>");
+    let noRestrictions = $("<div class='form-row'><input type='radio' class='form-check-input meal' name='meal" + i + "' id='noRs" + i + "' + value='0'>" + "<label class='form-check-label' for='noRs" + i + "'" + "> No Restrictions</label></div>");
+    let veg = $("<div class='form-row'><input type='radio' class='form-check-input meal' name='meal" + i + "' id='veg" + i + "' + value='2'>" + "<label class='form-check-label' for='veg" + i + "'" + ">Vegan/Vegetarian</label></div>");
+    let celiac = $("<div class='form-row'><input type='radio' class='form-check-input meal' name='meal" + i + "' id='celiac" + i + "' + value='2'>" + "<label class='form-check-label' for='celiac" + i + "'" + ">Gluten Free</label></div>");
+    let nuts = $("<div class='form-row'><input type='radio' class='form-check-input meal' name='meal" + i + "' id='nuts" + i + "' + value='2'>" + "<label class='form-check-label' for='nuts" + i + "'" + ">Nut Allergy</label></div>");
+    let other = $("<div class='form-row'><input type='radio' class='form-check-input meal' name='meal" + i + "' id='other" + i + "' + value='2'>" + "<label class='form-check-label' for='other" + i + "'" + ">Other (Please provide details in text box below)</label></div>");
     let textRow = $("<div class='form-row rsvp-row text-left'><p style='color:#891632'>Please use this space to let us know if you have any dietary restrictions. Or just leave us a message!</p></div>");
     let textArea = $("<textarea class='form-control' name='detailsTextArea" + i +  "' id='detailsTextArea" + i + "' rows='3'></textarea>")
     radioDiv.append(respY, labelY);
@@ -93,7 +94,7 @@ function renderRSVPFormCard(data, i) {
 
 function renderRSVPDetailCard(data, i) {
     const mealMap = ["None", "Vegan/Vegetarian", "Gluten Free", "Nut Allergy", "Other (In notes)"];
-    let card = $("<div class='form-group rsvp text-left'></div>");
+    let card = $("<div class='form-group rsvp rsvp_submitted text-left'></div>");
     let top = $("<div class='form-row guest'><div class='_id' style='display:none;'>" + data._id + "</div><h3 class='guest-name'>" + data.Guest + "</h3></div>");
     let underline = $("<div class='row'><div class='col-sm-4 col marker'></div><div class='col-sm-7'></div></div>")
     let response = $("<div class='row submission'><h4>"+"Response: " + data.Response + "</h4></div>");
@@ -136,17 +137,28 @@ function buildRSVPResponse() {
 }
 
 function appendUpdateResponseBtn(){
-    let btn = $("<div id='updateBtn' class='row'><div class='col-sm-3 text-right'><button type='submit' id='updateResponse' class='btn btn-default'>Update Response</button></div></div>")
+    $(".loader").show();
+    let btn = $("<div class='col-sm-3 cok-sm--offset-2 text-right'><button type='submit' id='updateResponse' class='btn btn-default'>Update Response</button></div>")
     $("#updateBtn").append(btn);
     $("#updateBtn").show();
     $(btn).click(function event(){
-        //TODO: wipe form data, render form with all possible responses
+        $("#updateBtn").hide();
         $("#formTitle").empty();
         $("#formTitle").text("Please RSVP By August 7th");
+        $("#rsvpForm").empty();
+        $(".rsvp_submitted").empty();
+        $(".rsvp_submitted").hide();
         for (i = 0; i < globalGuestUpdates.length; i++){
             renderRSVPFormCard(globalGuestUpdates[i], i);
         }
+        let submissionBtn = $('<div class="form-group"><button type="submit" id="rsvpSubmitBtn" class="btn btn-default">Submit</button></div>')
+        $("#rsvpForm").append(submissionBtn);
+        $(submissionBtn).click(function(event) {
+            event.preventDefault();
+            buildRSVPResponse();
+        })
         $("#responseDiv").show();
+        $(".loader").hide();
     });
 }
 
