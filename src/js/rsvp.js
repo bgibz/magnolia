@@ -125,7 +125,7 @@ function buildRSVPResponse() {
         let details = $(curr).find("#detailsTextArea0")[0].value;
         let guestResponse = {
             "_id": _id,
-            "name": name,
+            "Guest": name,
             "details": details,
             "meal": meal,
             "response": response
@@ -138,8 +138,15 @@ function buildRSVPResponse() {
 function appendUpdateResponseBtn(){
     let btn = $("<div id='updateBtn' class='row'><div class='col-sm-3 text-right'><button type='submit' id='updateResponse' class='btn btn-default'>Update Response</button></div></div>")
     $("#updateBtn").append(btn);
+    $("#updateBtn").show();
     $(btn).click(function event(){
         //TODO: wipe form data, render form with all possible responses
+        $("#formTitle").empty();
+        $("#formTitle").text("Please RSVP By August 7th");
+        for (i = 0; i < globalGuestUpdates.length; i++){
+            renderRSVPFormCard(globalGuestUpdates[i], i);
+        }
+        $("#responseDiv").show();
     });
 }
 
