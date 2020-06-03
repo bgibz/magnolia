@@ -78,11 +78,11 @@ function renderRSVPFormCard(data, i) {
     let dietDiv = $("<div class='form-check text-left'><h5>Let us know if you have any dietary restrictions<h5></div>");
     let noRestrictions = $("<div class='form-row'><input type='radio' class='form-check-input meal' name='meal" + i + "' id='noRs" + i + "' + value='0'>" + "<label class='form-check-label' for='noRs" + i + "'" + "> No Restrictions</label></div>");
     let veg = $("<div class='form-row'><input type='radio' class='form-check-input meal' name='meal" + i + "' id='veg" + i + "' + value='2'>" + "<label class='form-check-label' for='veg" + i + "'" + ">Vegan/Vegetarian</label></div>");
-    let celiac = $("<div class='form-row'><input type='radio' class='form-check-input meal' name='meal" + i + "' id='celiac" + i + "' + value='2'>" + "<label class='form-check-label' for='celiac" + i + "'" + ">Gluten Free</label></div>");
-    let nuts = $("<div class='form-row'><input type='radio' class='form-check-input meal' name='meal" + i + "' id='nuts" + i + "' + value='2'>" + "<label class='form-check-label' for='nuts" + i + "'" + ">Nut Allergy</label></div>");
-    let other = $("<div class='form-row'><input type='radio' class='form-check-input meal' name='meal" + i + "' id='other" + i + "' + value='2'>" + "<label class='form-check-label' for='other" + i + "'" + ">Other (Please provide details in text box below)</label></div>");
+    let celiac = $("<div class='form-row'><input type='radio' class='form-check-input meal' name='meal" + i + "' id='celiac" + i + "' + value='3'>" + "<label class='form-check-label' for='celiac" + i + "'" + ">Gluten Free</label></div>");
+    let nuts = $("<div class='form-row'><input type='radio' class='form-check-input meal' name='meal" + i + "' id='nuts" + i + "' + value='4'>" + "<label class='form-check-label' for='nuts" + i + "'" + ">Nut Allergy</label></div>");
+    let other = $("<div class='form-row'><input type='radio' class='form-check-input meal' name='meal" + i + "' id='other" + i + "' + value='5'>" + "<label class='form-check-label' for='other" + i + "'" + ">Other (Please provide details in text box below)</label></div>");
     let textRow = $("<div class='form-row rsvp-row text-left'><p style='color:#891632'>Please use this space to let us know if you have any dietary restrictions. Or just leave us a message!</p></div>");
-    let textArea = $("<textarea class='form-control' name='detailsTextArea" + i +  "' id='detailsTextArea" + i + "' rows='3'></textarea>")
+    let textArea = $("<textarea class='form-control detailsTextArea' name='detailsTextArea" + i +  "' id='detailsTextArea" + i + "' rows='3'></textarea>")
     radioDiv.append(respY, labelY);
     radioDivTwo.append(respN, labelN);
     radioRow.append(radioDiv, radioDivTwo);
@@ -116,14 +116,14 @@ function renderResponseConfirmation(data) {
 
 function buildRSVPResponse() {
     let form = $("#rsvpForm").find(".rsvp");
-    let response = []
+    let responses = []
     for (i = 0; i < form.length; i++) {
         let curr = $(form[i]);
         let name = $(curr).find("h3").text();
         let _id = $(curr).find("._id")[0].value;
         let response = $(curr).find("input.response:checked")[0].value;
         let meal = $(curr).find("input.meal:checked")[0].value;
-        let details = $(curr).find("#detailsTextArea0")[0].value;
+        let details = $(curr).find(".detailsTextArea")[0].value;
         let guestResponse = {
             "_id": _id,
             "Guest": name,
@@ -131,9 +131,9 @@ function buildRSVPResponse() {
             "meal": meal,
             "response": response
         }
-        response.push(guestResponse);
+        responses.push(guestResponse);
     }
-    postRSVPResponse(response);
+    postRSVPResponse(responses);
 }
 
 function appendUpdateResponseBtn(){
@@ -153,12 +153,12 @@ function appendUpdateResponseBtn(){
         }
         let submissionBtn = $('<div class="form-group"><button type="submit" id="rsvpSubmitBtn" class="btn btn-default">Submit</button></div>')
         $("#rsvpForm").append(submissionBtn);
+        $("#responseDiv").show();
+        $(".loader").hide();
         $(submissionBtn).click(function(event) {
             event.preventDefault();
             buildRSVPResponse();
         })
-        $("#responseDiv").show();
-        $(".loader").hide();
     });
 }
 
@@ -187,6 +187,7 @@ function postRSVPResponse(response){
         cache: false,
         method: "POST",
         dataType: "json",
+        contentType: "application/json; charset=utf-8",
         headers: {"Accept": "application/json; odata=verbose"},
         data: payload,
         success: function(data) {
@@ -215,6 +216,7 @@ function postRSVPResponse(response){
             $("#rsvpForm").show();
             $("#submitError").empty();
             $("#submitError").append("<span class='text-danger'>Something went wrong. Please try again later.</span>")
+            $("#submitError").show();
         }
     })
 
