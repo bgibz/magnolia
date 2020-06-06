@@ -106,7 +106,7 @@ function renderRSVPDetailCard(data, i) {
 
 function renderResponseConfirmation(data) {
     let mealMap = ["No Restrictions", "Vegan/Vegetarian", "Celiac", "Nut Allergy", "Other"];
-    let target = $("div class='rsvp text-left></div>");
+    let target = $("<div class='rsvp text-left></div>");
     let name = $("<h3 class='guest-name'>" + data.name + "</h3>");
     let underline = $("<div class='row'><div class='col-sm-4 col marker'></div><div class='col-sm-7'></div></div>");
     let response = $("<div class='row' style='padding-left: 15px;'><p><strong>Response: </strong>" + data.response + "</p></div>");
@@ -189,7 +189,7 @@ function postRSVPResponse(response){
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         headers: {"Accept": "application/json; odata=verbose"},
-        data: payload,
+        data: JSON.stringify(payload),
         success: function(data) {
             $('.loader').hide();
             $("#responseDiv").empty();
