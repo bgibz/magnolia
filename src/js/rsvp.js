@@ -48,7 +48,6 @@ function displayRSVP(data) {
             globalGuestUpdates.push(data[i])
             renderRSVPDetailCard(data[i], i);
             $("#responseDiv").show();
-            $(".loader").show();
         }
     }
     if (submissionChk) {
@@ -93,11 +92,11 @@ function renderRSVPFormCard(data, i) {
 }
 
 function renderRSVPDetailCard(data, i) {
-    const mealMap = ["None", "Vegan/Vegetarian", "Gluten Free", "Nut Allergy", "Other (In notes)"];
+    const mealMap = ["No Restrictions", "Vegan/Vegetarian", "Gluten Free", "Nut Allergy", "Other (In notes)"];
     let card = $("<div class='form-group rsvp rsvp_submitted text-left'></div>");
     let top = $("<div class='form-row guest'><div class='_id' style='display:none;'>" + data._id + "</div><h3 class='guest-name'>" + data.Guest + "</h3></div>");
     let underline = $("<div class='row'><div class='col-sm-4 col marker'></div><div class='col-sm-7'></div></div>")
-    let response = $("<div class='row submission'><h4>"+"Response: " + data.Response + "</h4></div>");
+    let response = $("<div class='row submission'><h4>"+"Response:<span style='color:#891632;'>" + data.Response + "</span></h4></div>");
     let meal = $("<div class='row submission'><h5>"+"Dietary Restrictions:</h5><p> " + mealMap[data.Diet] + "</p></div>");
     let details = $("<div class='row submission'><h5>Details:</h5><p>" + data.Details + "</p></div>");
     card.append(top, underline, response, meal, details);
@@ -106,12 +105,13 @@ function renderRSVPDetailCard(data, i) {
 
 function renderResponseConfirmation(data) {
     let mealMap = ["No Restrictions", "Vegan/Vegetarian", "Celiac", "Nut Allergy", "Other"];
-    let target = $("<div class='rsvp text-left></div>");
-    let name = $("<h3 class='guest-name'>" + data.name + "</h3>");
+    let card = $("<div class='form-group rsvp rsvp_submitted text-left'></div>");
+    let name = $("<h3 class='guest-name'>" + data.Guest + "</h3>");
     let underline = $("<div class='row'><div class='col-sm-4 col marker'></div><div class='col-sm-7'></div></div>");
     let response = $("<div class='row' style='padding-left: 15px;'><p><strong>Response: </strong>" + data.response + "</p></div>");
     let meal_choice = $("<div class='row' style='padding-left: 15px;'><p><strong>Meal Choice: </strong>" + mealMap[data.meal] + "</p></div>");  
-    target.append(name, underline, response, meal_choice);  
+    card.append(name, underline, response, meal_choice);  
+    $("#responseDiv").append(card);
 }
 
 function buildRSVPResponse() {
@@ -193,23 +193,23 @@ function postRSVPResponse(response){
         success: function(data) {
             $('.loader').hide();
             $("#responseDiv").empty();
-            if (data.length === 1) {
-                $("#formTitle").text("Thank You For Your Response");
-                globalGuestUpdates = data;
-                renderResponseConfirmation(data[0]);
-                appendUpdateResponseBtn();
-            }
-            else if (data.length > 1) {
-                $("#formTitle").text("Thank You For Your Responses");
-                for ( i = 0; i < data.length; i++) {
-                    globalGuestUpdates = data;
-                    renderResponseConfirmation(data[i])
-                    appendUpdateResponseBtn();
-                }
-            }
-            else {
+            if (data.length === 0 ){
                 $("#formTitle").text("We're sorry, something has gone wrong. Please try again later.");
             }
+            else {
+                globalGuestUpdates = data;
+                if (data.length === 1) {
+                    $("#formTitle").text("Thank You For Your Response");
+                    renderResponseConfirmation(data[i]);
+                }
+                else if (data.length > 1) {
+                    $("#formTitle").text("Thank You For Your Responses");
+                    for ( i = 0; i < data.length; i++) {
+                        renderResponseConfirmation(data[i]);
+                    }
+                }
+                //appendUpdateResponseBtn();
+            }            
         },
         error: function(data) {
             $(".loader").hide();

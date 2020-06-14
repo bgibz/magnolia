@@ -42,7 +42,7 @@
               <li role="presentation"><a href="./travel.html">Travel</a></li>
               <li role="presentation"><a href="./photos.html">Photos</a></li>
               <li role="presentation"><a href="./registry.html">Registry</a></li>
-              <li role="presentation" class="active-nav"><a href="#">RSVP</a></li>
+              <li role="presentation" class="active-nav"><a href="./rsvp.html">RSVP</a></li>
             </ul>
           </nav>
         </div>
@@ -52,7 +52,7 @@
         <div class="row details">
           <div class="col-sm-6 col-sm-offset-3 text-center">
               <div class="block">
-                <h3 id="formTitle">Find Your Invitation</h3>
+                <h3 id="formTitle">Thank You For Your Response</h3>
               </div>
           </div>
           <div class="col-sm-6 col-sm-offset-3 text-center">
@@ -60,7 +60,7 @@
                 <div class="loader-holder" style="position: relative;">
                   <div class="loader" style="display: none;"></div>
                 </div>
-                <div id="nameCheck" >
+                <div id="nameCheck" style="display:none;" >
                   <form class="form">
                     <div class="form-group col-sm-12">
                       <h4>Please Enter Your First & Last Name</h4>
@@ -74,12 +74,27 @@
                     <div id="submitError" class="col-sm-6"></div>
                   </form>
                 </div>
-                <div  id ="responseDiv" style="display: none;">
-                  <form class="form-inline" id="rsvpForm">
-                  </form>
+                <div id="responseDiv" >
+                    <div class="rsvp text-left">
+                        <h3 class="guest-name">Sarah Lore</h3>
+                        <div class="row" style="padding-bottom: 10px;">
+                            <div class="col-sm-4 col-xs-6 col marker"></div>
+                            <div class="col-sm-7 col-xs-6"></div>
+                        </div>
+                        <div class="row" style="padding-left:15px;">
+                            <p><strong>Response: </strong>Attending</p>
+                        </div>
+                        <div class="row" style="padding-left:15px;">
+                            <p><strong>Meal Choice: </strong>No Restrictions</p>
+                        </div>
+                    </div> 
                 </div>
               </div>
-              <div id="updateBtn" class="row" style="display: none;"></div>
+              <div id="updateBtn" class="row">
+                  <div class="col-sm-3 text-right">
+                      <button type="submit" id="updateRSVP" class="btn btn-default">Update Response</button>
+                  </div>
+              </div>
           </div>
         </div>
 
