@@ -12,6 +12,19 @@ body {
   color: #6e6e6e;
 }
 
+.landing-body {
+  background-image: url("../media/25-engagement.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+}
+
+#landing-title {
+  color: whitesmoke;
+}
+
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .details,
@@ -28,7 +41,7 @@ body {
 }
 
 .spacer {
-  padding-top:40px;
+  padding-top: 40px;
   padding-bottom: 40px;
   border-bottom: 2px solid #e5e5e5;
 }
@@ -42,7 +55,7 @@ body {
 /* Custom page footer */
 .footer {
   padding-top: 40px;
-  padding-bottom:20px;
+  padding-bottom: 20px;
   color: #777;
   border-top: 3px solid #e5e5e5;
 }
@@ -96,10 +109,10 @@ img.rose {
 }
 
 a {
-  font-size: 1.5vw
+  font-size: 1.5vw;
 }
 
-.nav-pills li.active-nav a{
+.nav-pills li.active-nav a {
   background-color: #891632;
   color: floralwhite;
 }
@@ -128,7 +141,7 @@ h1.title {
   text-align: center;
 }
 
-.block{
+.block {
   padding-top: 20px;
   padding-bottom: 20px;
   border-bottom: 2px solid #e5e5e5;
@@ -140,7 +153,6 @@ h1.title {
 .img-basket {
   position: relative;
   bottom: 0px;
-
 }
 .watercolor {
   max-width: 50%;
@@ -151,14 +163,14 @@ h1.title {
   z-index: 1;
 }
 
-.rsvp{
+.rsvp {
   padding: 10px 10px 20px 10px;
   border: 2px solid #e5e5e5;
   border-radius: 15px;
   position: relative;
   font-size: 1.1em;
 }
-input[type=radio] {
+input[type="radio"] {
   margin-right: 4px;
 }
 
@@ -166,8 +178,8 @@ input[type=radio] {
   padding-top: 15px;
 }
 
-#rsvpRadios{
-  display:flex;
+#rsvpRadios {
+  display: flex;
 }
 
 .submission {
@@ -179,8 +191,8 @@ input[type=radio] {
   border-bottom: 2px solid #891632;
 }
 
-.guest-name{
-  color: #891632
+.guest-name {
+  color: #891632;
 }
 
 textarea {
@@ -212,7 +224,7 @@ textarea {
   .watercolor {
     display: none;
   }
-  .page-card{
+  .page-card {
     padding-top: 15px;
     padding-bottom: 15px;
   }
@@ -246,13 +258,13 @@ textarea {
     padding: 10px;
   }
   .container-narrow > hr {
-  margin: 0 0;
+    margin: 0 0;
   }
-  h1.title{
+  h1.title {
     font-size: 3em;
   }
-  a{
-    font-size: 4.0vw
+  a {
+    font-size: 4vw;
   }
   .inner-card {
     padding: 15px;
@@ -260,7 +272,7 @@ textarea {
   .watercolor {
     display: none;
   }
-  #rsvpRadios{
+  #rsvpRadios {
     display: inline;
   }
 }
@@ -277,16 +289,24 @@ textarea {
   top: 50%;
   left: 50%;
   margin-right: -50%;
-  transform: translate(-50%, -50%) 
+  transform: translate(-50%, -50%);
 }
 
 /* Safari */
 @-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
