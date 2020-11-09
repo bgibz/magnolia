@@ -11,26 +11,67 @@ body {
   font-family: Cormorant Garamond, Lucida Bright, serif;
   color: #6e6e6e;
 }
-/* Landing Page Styles */
-.landing-body {
-  background-image: url("../media/25-engagement.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+/* Splash Page Styles */
+.splash-body {
+  background: url("../media/25-engagement.jpg") no-repeat center center fixed;
   height: 100%;
   width: 100%;
+  padding-top: 1px;
+  padding-bottom: 0px;
 }
 
-.landing-container {
-  margin: 2% 7% 2% 7%;
+#overlay {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(120, 120, 120);
+  opacity: 0;
+  z-index: -1;
+}
+#overlay.fade-in {
+  opacity: 0.4;
+  transition: opacity 5s;
 }
 
-#landing-title {
-  font-size: 7em;
-  color: ivory;
+.splash-container {
+  margin: 7% 7% 7% 7%;
+  position: relative;
+  top: 200px;
+}
+
+#splash-title {
+  font-size: 6em;
+  color: #fffafa;
+  opacity: 0;
+  z-index: 2;
+}
+#splash-title.fade-in {
+  opacity: 1;
+  transition: opacity 5s;
+}
+
+#splash-date {
+  font-size: 4em;
+  font-style: italic;
+  color: #fffafa;
   opacity: 0;
 }
-#landing-title.fade-in {
+#splash-date.fade-in {
+  opacity: 1;
+  transition: opacity 5s;
+}
+
+#enter-link {
+  font-size: 5em;
+  color: #fffafa;
+  opacity: 0;
+  z-index: 2;
+}
+#enter-link.fade-in {
   opacity: 1;
   transition: opacity 5s;
 }

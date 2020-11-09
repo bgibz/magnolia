@@ -3,10 +3,12 @@
  */
 
 $(document).ready(function() {
-  $("#landing-title").addClass("fade-in");
-  //setTimeout(redirectHome, 7000);
+  $("#splash-title").addClass("fade-in");
+  $("#splash-date").addClass("fade-in");
+  $("#enter-link").addClass("fade-in");
+  setTimeout(delay_overlay_fade, 3000);
 });
 
-function redirectHome() {
-  window.location.href = "./home.html";
+function delay_overlay_fade() {
+  $("#overlay").addClass("fade-in");
 }
