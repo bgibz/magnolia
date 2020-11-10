@@ -43,6 +43,12 @@ body {
   top: 200px;
 }
 
+.link-container {
+  margin: 7% 7% 7% 7%;
+  position: absolute;
+  bottom: 100px;
+}
+
 #splash-title {
   font-size: 6em;
   color: #fffafa;
@@ -74,6 +80,31 @@ body {
 #enter-link.fade-in {
   opacity: 1;
   transition: opacity 5s;
+}
+
+/* Splash Page Mobile */
+@media screen and (max-width: 480px) {
+  .splash-body {
+    background-position: 53% 50%;
+    background-size: auto 110%;
+  }
+  .splash-container {
+    margin: 2% 2% 2% 2%;
+    position: relative;
+    top: 20px;
+  }
+  #splash-title {
+    font-size: 5em;
+  }
+  #splash-date {
+    font-size: 3em;
+  }
+  #enter-link {
+    font-size: 3em;
+    color: #fffafa;
+    opacity: 0;
+    z-index: 2;
+  }
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
