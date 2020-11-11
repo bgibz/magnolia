@@ -1,9 +1,3 @@
-/*
-lightGallery(document.getElementById('galleryOne'), {
-    thumbnail: true
-});
-*/
-
 document.getElementById("launch-img").addEventListener("click", function() {
   lightGallery(document.getElementById("launch-img"), {
     thumbnail: true,
@@ -36,12 +30,6 @@ document.getElementById("launch-img").addEventListener("click", function() {
       {
         src: "../media/engagement/19-engagement.jpg",
         thumb: "../media/engagement/19-engagement.jpg",
-        subHtml:
-          "<h4>Engagement Photo Session</h4><p>Sara Rogers Photography</p>"
-      },
-      {
-        src: "../media/engagement/20-engagement.jpg",
-        thumb: "../media/engagement/20-engagement.jpg",
         subHtml:
           "<h4>Engagement Photo Session</h4><p>Sara Rogers Photography</p>"
       },

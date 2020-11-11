@@ -12,6 +12,18 @@ body {
   color: #6e6e6e;
 }
 
+/* gallery page */
+.gallery-container {
+  position: relative;
+}
+.gallery-title {
+  position: absolute;
+  bottom: 25px;
+  left: 25px;
+  color: #fffafa;
+  font-size: 4em;
+}
+
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .details,
