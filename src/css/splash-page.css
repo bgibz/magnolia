@@ -1,6 +1,7 @@
 /* Splash Page Styles */
 .splash-body {
-  background: url("../../media/25-engagement.jpg") no-repeat center center fixed;
+  background: url("../../media/engagement/25-engagement.jpg") no-repeat center
+    center fixed;
   height: 100%;
   width: 100%;
   padding-top: 1px;
